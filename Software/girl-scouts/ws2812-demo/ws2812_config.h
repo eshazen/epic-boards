@@ -29,7 +29,7 @@
 
 
 #define ws2812_port B     // Data port 
-#define ws2812_pin  3     // Data out pin
+#define ws2812_pin  4     // Data out pin
 
 ///////////////////////////////////////////////////////////////////////
 // Define interrupt behaviour
