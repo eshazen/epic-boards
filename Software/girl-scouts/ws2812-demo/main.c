@@ -12,7 +12,10 @@
 #include <avr/interrupt.h>
 #include "light_ws2812.h"
 
-struct cRGB led[1];
+struct cRGB led[3];
+struct cRGB temp;
+
+#define BRITE 100
 
 int main(void)
 {
@@ -21,18 +24,21 @@ int main(void)
   CLKPSR=0;		// set cpu clock prescaler =1 (8Mhz) (attiny 4/5/9/10)
   #endif
 
+  // initialize the array
+  led[0].r=BRITE; led[0].g=0; led[0].b=0; 
+  led[1].r=BRITE; led[1].g=BRITE; led[1].b=0; 
+  led[2].r=0; led[2].g=BRITE; led[2].b=0; 
+
   while(1)
   {
-    led[0].r=255;led[0].g=00;led[0].b=0;    // Write red to array
-    ws2812_setleds(led,1);
-    _delay_ms(500);                         // wait for 500ms.
+    ws2812_setleds(led,3);
 
-    led[0].r=0;led[0].g=255;led[0].b=0;			// green
-    ws2812_setleds(led,1);
-    _delay_ms(500);
+    // roll the colors
+    temp = led[0];
+    led[0] = led[1];
+    led[1] = led[2];
+    led[2] = temp;
 
-    led[0].r=0;led[0].g=00;led[0].b=255;		// blue
-    ws2812_setleds(led,1);
     _delay_ms(500);
   }
 }
