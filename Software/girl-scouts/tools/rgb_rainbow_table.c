@@ -39,7 +39,9 @@ int main( int argc, char **argv)
   printf("// Generating %d colors for hue=%f sat=%f\n", ncolor, h, s);
 
 #ifndef DEBUG
-  printf( "struct { int r; int g; int b; } rgb[] = {\n");
+  printf( "#include <stdint.h>\n");
+  printf( "#define NUM_RGB_COLORS %d\n", ncolor);
+  printf( "static struct { uint8_t r; uint8_t g; uint8_t b; } rgb[] = {\n");
 #endif  
 
   double hue_step = (2.0*M_PI) / ncolor;
