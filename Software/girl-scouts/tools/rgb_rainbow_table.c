@@ -7,6 +7,8 @@
 
 // #define DEBUG
 
+#define PROG_MEM
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -41,7 +43,11 @@ int main( int argc, char **argv)
 #ifndef DEBUG
   printf( "#include <stdint.h>\n");
   printf( "#define NUM_RGB_COLORS %d\n", ncolor);
+#ifdef PROG_MEM
+  printf( "const unsigned char rgb[%d][3] PROGMEM = {\n", ncolor);
+#else  
   printf( "static struct { uint8_t r; uint8_t g; uint8_t b; } rgb[] = {\n");
+#endif
 #endif  
 
   double hue_step = (2.0*M_PI) / ncolor;

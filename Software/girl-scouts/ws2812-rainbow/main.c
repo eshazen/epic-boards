@@ -9,6 +9,7 @@
 
 #include <util/delay.h>
 #include <avr/io.h>
+#include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include "light_ws2812.h"
 
@@ -29,25 +30,25 @@ int main(void)
 
   while( 1) {
     // cycle through rainbow
-    for( uint8_t i=0; i<NUM_RGB_COLORS; i++) {
+    for( int i=0; i<NUM_RGB_COLORS; i++) {
 
-      uint8_t i1 = ((i+(NUM_RGB_COLORS/3))%NUM_RGB_COLORS);
-      uint8_t i2 = ((i1+(NUM_RGB_COLORS/3))%NUM_RGB_COLORS);	
+      int i1 = ((i+(NUM_RGB_COLORS/3))%NUM_RGB_COLORS);
+      int i2 = ((i1+(NUM_RGB_COLORS/3))%NUM_RGB_COLORS);	
 
-      led[0].g = rgb[i].r;
-      led[0].r = rgb[i].g;
-      led[0].b = rgb[i].b;
+      led[0].r = pgm_read_byte(&(rgb[i][0]));
+      led[0].g = pgm_read_byte(&(rgb[i][1]));
+      led[0].b = pgm_read_byte(&(rgb[i][2]));
 
-      led[1].g = rgb[i1].r;
-      led[1].r = rgb[i1].g;
-      led[1].b = rgb[i1].b;
+      led[1].r = pgm_read_byte(&(rgb[i1][0]));
+      led[1].g = pgm_read_byte(&(rgb[i1][1]));
+      led[1].b = pgm_read_byte(&(rgb[i1][2]));
 
-      led[2].g = rgb[i2].r;
-      led[2].r = rgb[i2].g;
-      led[2].b = rgb[i2].b;
+      led[2].r = pgm_read_byte(&(rgb[i2][0]));
+      led[2].g = pgm_read_byte(&(rgb[i2][1]));
+      led[2].b = pgm_read_byte(&(rgb[i2][2]));
 
       ws2812_setleds(led,3);
-      _delay_ms(25);
+      _delay_ms(1000);
     }
   }
 }
