@@ -48,7 +48,7 @@ int main(void)
       led[2].b = pgm_read_byte(&(rgb[i2][2]));
 
       ws2812_setleds(led,3);
-      _delay_ms(1000);
+      _delay_ms(100);
     }
   }
 }

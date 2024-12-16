@@ -25,10 +25,10 @@ FUSEOPT = -U lfuse:w:0xe2:m
 # programmer configuration for avrdude programming utility
 
 # for AVRISP programmer on USB
-# DUDEPORT  = -c avrispv2 -P usb
+DUDEPORT  = -c avrispv2 -P usb
 
 # "Tiny AVR programmer"
-DUDEPORT = -c usbtiny -b 19200
+# DUDEPORT = -c usbtiny -b 19200
 
 # for Arduino bootloader
 # DUDEPORT  = -c arduino -P /dev/ttyACM0
@@ -40,7 +40,7 @@ AVRDUDE  = avrdude $(DUDEPORT) -p $(DUDEMCU) -y -u
 objects = main.o light_ws2812.o
 asmobj =
 
-headers =
+headers = rgb32.h light_ws2812.h ws2812_config.h
 
 
 all: $(asmobj) $(objects)  main.hex list

@@ -6,7 +6,7 @@
  * User Configuration file for the light_ws2812_lib
  *
  */ 
-
+ 
 
 #ifndef WS2812_CONFIG_H_
 #define WS2812_CONFIG_H_
@@ -29,6 +29,8 @@
 
 
 #define ws2812_port B     // Data port 
+
+// 3 for PCB  4 for breadboard
 #define ws2812_pin  3     // Data out pin
 
 ///////////////////////////////////////////////////////////////////////
