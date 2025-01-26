@@ -20,12 +20,3 @@ void go_to_sleep() {
   sleep_cpu();
 }
 
-// needed but not used
-ISR(PCINT0_vect) {
-  button = 1;
-}
-
-// needed but not used
-ISR(PCINT1_vect) {
-  button = 2;
-}
