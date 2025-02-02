@@ -29,7 +29,7 @@ struct cRGB temp;
 //
 // display options
 //
-#define NUM_OPTIONS 6
+#define NUM_OPTIONS 9
 void rainbow();
 void flicker();
 void flash();
@@ -41,6 +41,18 @@ ISR(PCINT0_vect) {
     button = (button + 1) % NUM_OPTIONS;
   if( !(PINB & _BV(1)))
     button = (button - 1) % NUM_OPTIONS;
+}
+
+
+void all_off() {
+  memset( led, 0, sizeof(led));
+    ws2812_setleds(led,3);
+}
+
+
+void delay_10ms( int n) {
+  for( int i=0; i<n; i++)
+    _delay_ms(10);
 }
 
 
@@ -58,8 +70,7 @@ int main(void)
   while( 1) {
 
     // turn off all the LEDs
-    memset( led, 0, sizeof(led));
-    ws2812_setleds(led,3);
+    all_off();
 
     // go to sleep
     go_to_sleep();
@@ -73,9 +84,9 @@ int main(void)
       led[2].r = 128;
     
     ws2812_setleds(led,3);
-    _delay_ms(1000);
+    _delay_ms(200);
 
-    memset( led, 0, sizeof(led));
+    all_off();
 
     // figure out which button was pressed
     switch( button) {
@@ -96,6 +107,15 @@ int main(void)
       break;
     case 5:
       fade( 0, 0, 128);
+      break;
+    case 6:
+      flash( 128, 128, 0);
+      break;
+    case 7:
+      flash( 0, 128, 128);
+      break;
+    case 8:
+      flash( 128, 0, 128);
       break;
     }
   }
@@ -160,13 +180,17 @@ void rainbow() {
 
 //------------------------------------------------------------
 #define NUM_FLASH 3
-void flash() {
-  for( int i=0; i<NUM_FLASH; i++) {
-    led[i].r = 128;
-    led[i].g = 128;
-    led[i].b = 128;
+void flash( int r, int g, int b) {
+  for( int d=1000; d>10; d /= 2) {
+    for( int i=0; i<NUM_FLASH; i++) {
+      memset( led, 0, sizeof(led));
+      led[i].r = r;
+      led[i].g = g;
+      led[i].b = b;
       ws2812_setleds(led,3);
-    _delay_ms(1000);
+      delay_10ms( d/10);
+    }
+    all_off();
   }
 }
     

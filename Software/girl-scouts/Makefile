@@ -3,10 +3,9 @@
 #
 
 MCU = attiny85
-# MCU = atmega328
 
-# 8 MHz for on-board oscillator
-F_OSC = 8000000
+# 1 MHz for on-board oscillator
+F_OSC = 1000000
 
 # 16MHz for Stock arduino
 # F_OSC = 16000000
@@ -17,33 +16,25 @@ CFLAGS_NOOPT = -g -O0 -mmcu=$(MCU) $(EXTRAOPT) -DF_CPU=$(F_OSC) -I../util -Wl,-u
 
 LDFLAGS = -Wl,-Map=$(<:.o=.map),--cref -mmcu=$(MCU)
 
-# FUSEOPT = -U hfuse:w:0xd9:m
-
-# disable CLKDIV8 on ATTiny85
-FUSEOPT = -U lfuse:w:0xe2:m
+FUSEOPT = -U hfuse:w:0xd9:m
 
 # programmer configuration for avrdude programming utility
 
 # for AVRISP programmer on USB
-# DUDEPORT  = -c avrispv2 -P usb
-
-# "Tiny AVR programmer"
-DUDEPORT = -c usbtiny -b 19200
+DUDEPORT  = -c avrispv2 -P usb
 
 # for Arduino bootloader
 # DUDEPORT  = -c arduino -P /dev/ttyACM0
 
-# DUDEMCU = m328p
 DUDEMCU = t85
 AVRDUDE  = avrdude $(DUDEPORT) -p $(DUDEMCU) -y -u 
 
-objects = main.o light_ws2812.o wake.o
-asmobj =
+objects = main.o
 
-headers = rgb32.h light_ws2812.h ws2812_config.h wake.h
+headers =
 
 
-all: $(asmobj) $(objects)  main.hex list
+all: $(objects)  main.hex list
 
 clean:
 	rm -f *.o *~ *.hex *.elf *.map *.lst
@@ -58,17 +49,11 @@ list:
 $(objects): %.o: %.c $(headers)
 	avr-gcc -c $(CFLAGS) $< -o $@
 
-$(asmobj): %.o: %.s
-	avr-gcc -c $(CFLAGS) $< -o $@
-
 main.elf: $(objects)
-	avr-gcc $(LDFLAGS) $(asmobj) $(objects) -o $@
+	avr-gcc $(LDFLAGS) $(objects) -o $@
 
 main.hex: main.elf
 	avr-objcopy -j .text -j .data -O ihex $< $@
 
 fuse:
 	$(AVRDUDE) $(FUSEOPT)
-
-rfuse:
-	$(AVRDUDE) -U lfuse:r:-:h
