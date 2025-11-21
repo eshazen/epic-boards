@@ -1,19 +1,48 @@
 M48
+<<<<<<< HEAD
 ; DRILL file {KiCad 8.0.6-8.0.6-0~ubuntu22.04.1} date 2024-11-09T10:11:18-0500
 ; FORMAT={-:-/ absolute / inch / decimal}
 ; #@! TF.CreationDate,2024-11-09T10:11:18-05:00
 ; #@! TF.GenerationSoftware,Kicad,Pcbnew,8.0.6-8.0.6-0~ubuntu22.04.1
+=======
+; DRILL file {KiCad 8.0.6-8.0.6-0~ubuntu24.04.1} date 2024-11-12T14:12:36-0500
+; FORMAT={-:-/ absolute / inch / decimal}
+; #@! TF.CreationDate,2024-11-12T14:12:36-05:00
+; #@! TF.GenerationSoftware,Kicad,Pcbnew,8.0.6-8.0.6-0~ubuntu24.04.1
+>>>>>>> 3aa30e9b2cf7abbcfde94d1017a9dae7777007e3
 ; #@! TF.FileFunction,NonPlated,1,2,NPTH
 FMAT,2
 INCH
 ; #@! TA.AperFunction,NonPlated,NPTH,ComponentDrill
-T1C0.1693
+T1C0.0669
+; #@! TA.AperFunction,NonPlated,NPTH,ComponentDrill
+T2C0.1000
+; #@! TA.AperFunction,NonPlated,NPTH,ComponentDrill
+T3C0.1378
+; #@! TA.AperFunction,NonPlated,NPTH,ComponentDrill
+T4C0.1575
+; #@! TA.AperFunction,NonPlated,NPTH,ComponentDrill
+T5C0.1693
 %
 G90
 G05
 T1
-X1.9Y-1.9
-X1.9Y-3.2
-X4.3Y-1.9
-X4.3Y-3.2
+X2.65Y-4.175
+X3.05Y-4.175
+X3.45Y-4.175
+X3.85Y-4.175
+T2
+X2.5565Y-2.2995
+X3.0875Y-1.4135
+X3.6145Y-2.2895
+T3
+X1.8075Y-2.85
+T4
+X2.85Y-4.175
+X3.65Y-4.175
+T5
+X1.775Y-1.325
+X1.775Y-4.425
+X4.375Y-1.325
+X4.375Y-4.425
 M30

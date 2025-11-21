@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "ICM7218A")(type "Legacy")(uri "${KIPRJMOD}/ICM7218A.lib")(options "")(descr ""))
+  (lib (name "TLC3541")(type "KiCad")(uri "${KIPRJMOD}/TLC3541.kicad_sym")(options "")(descr ""))
+)
