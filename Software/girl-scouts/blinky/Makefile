@@ -5,9 +5,8 @@
 MCU = attiny85
 # MCU = atmega328
 
+# 8 MHz for on-board oscillator
 F_OSC = 8000000
-# 1 MHz for on-board oscillator
-# F_OSC = 1000000
 
 # 16MHz for Stock arduino
 # F_OSC = 16000000
@@ -20,10 +19,8 @@ LDFLAGS = -Wl,-Map=$(<:.o=.map),--cref -mmcu=$(MCU)
 
 # FUSEOPT = -U hfuse:w:0xd9:m
 
-# disable CLKDIV8 on ATTiny85 check this!
-# FUSEOPT = -U lfuse:w:0xe2:m
-# FUSEOPT = -U hfuse:w:0xd9:m
-
+# disable CLKDIV8 on ATTiny85
+FUSEOPT = -U lfuse:w:0xe2:m
 
 # programmer configuration for avrdude programming utility
 

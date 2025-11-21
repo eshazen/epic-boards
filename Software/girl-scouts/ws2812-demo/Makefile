@@ -5,9 +5,8 @@
 MCU = attiny85
 # MCU = atmega328
 
+# 8 MHz for on-board oscillator
 F_OSC = 8000000
-# 1 MHz for on-board oscillator
-# F_OSC = 1000000
 
 # 16MHz for Stock arduino
 # F_OSC = 16000000
@@ -20,10 +19,8 @@ LDFLAGS = -Wl,-Map=$(<:.o=.map),--cref -mmcu=$(MCU)
 
 # FUSEOPT = -U hfuse:w:0xd9:m
 
-# disable CLKDIV8 on ATTiny85 check this!
-# FUSEOPT = -U lfuse:w:0xe2:m
-# FUSEOPT = -U hfuse:w:0xd9:m
-
+# disable CLKDIV8 on ATTiny85
+FUSEOPT = -U lfuse:w:0xe2:m
 
 # programmer configuration for avrdude programming utility
 
@@ -37,12 +34,13 @@ DUDEPORT  = -c avrispv2 -P usb
 DUDEMCU = t85
 AVRDUDE  = avrdude $(DUDEPORT) -p $(DUDEMCU) -y -u 
 
-objects = main.o
+objects = main.o light_ws2812.o
+asmobj =
 
 headers =
 
 
-all: $(objects)  main.hex list
+all: $(asmobj) $(objects)  main.hex list
 
 clean:
 	rm -f *.o *~ *.hex *.elf *.map *.lst
@@ -57,8 +55,11 @@ list:
 $(objects): %.o: %.c $(headers)
 	avr-gcc -c $(CFLAGS) $< -o $@
 
+$(asmobj): %.o: %.s
+	avr-gcc -c $(CFLAGS) $< -o $@
+
 main.elf: $(objects)
-	avr-gcc $(LDFLAGS) $(objects) -o $@
+	avr-gcc $(LDFLAGS) $(asmobj) $(objects) -o $@
 
 main.hex: main.elf
 	avr-objcopy -j .text -j .data -O ihex $< $@
