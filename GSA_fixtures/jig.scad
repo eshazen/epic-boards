@@ -2,6 +2,8 @@
 // soldering jig to hold PCB for installing switches and battery holder
 //
 
+// poss some Git merge errors, check geom
+
 mm = 25.4;
 e = 0.1;
 $fn = 64;
