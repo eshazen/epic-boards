@@ -4,4 +4,5 @@
   (lib (name "TLC3541")(type "KiCad")(uri "${KIPRJMOD}/TLC3541.kicad_sym")(options "")(descr ""))
   (lib (name "INA121")(type "KiCad")(uri "${KIPRJMOD}/INA121.kicad_sym")(options "")(descr ""))
   (lib (name "misc_bom")(type "KiCad")(uri "${KIPRJMOD}/misc_bom.kicad_sym")(options "")(descr ""))
+  (lib (name "my_DCDC")(type "KiCad")(uri "${KIPRJMOD}/my_DCDC.kicad_sym")(options "")(descr ""))
 )
